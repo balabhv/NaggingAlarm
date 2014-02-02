@@ -11,6 +11,8 @@ import android.widget.TextClock;
 
 public class MainActivity extends Activity {
 
+	public static final String PREFS_TAG = "SHARED_PREFS";
+
 	public static WordDictionary dict;
 	
 	TextClock clock;
@@ -64,6 +66,9 @@ public class MainActivity extends Activity {
 					WordActivity.class));
 		}
 			return true;
+		case R.id.action_settings: {
+			startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+		}
 		default:
 			return super.onOptionsItemSelected(item);
 		}

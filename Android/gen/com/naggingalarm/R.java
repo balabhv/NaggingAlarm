@@ -26,18 +26,30 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int listelement_bkgd=0x7f020001;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0000;
-        public static final int action_settings=0x7f0a0004;
-        public static final int button1=0x7f0a0003;
+        public static final int action_settings=0x7f0a000d;
+        public static final int alarmLayout=0x7f0a0007;
+        public static final int button1=0x7f0a000b;
+        public static final int button2=0x7f0a000c;
+        public static final int check_layout=0x7f0a0003;
+        public static final int description=0x7f0a0005;
+        public static final int enabled=0x7f0a0006;
+        public static final int name=0x7f0a0004;
+        public static final int outerLayout=0x7f0a0002;
+        public static final int scrollView1=0x7f0a0009;
+        public static final int scrollqueue=0x7f0a000a;
         public static final int textClock1=0x7f0a0001;
-        public static final int textView1=0x7f0a0002;
-        public static final int wordsviewopen=0x7f0a0005;
+        public static final int textView1=0x7f0a0008;
+        public static final int wordsviewopen=0x7f0a000e;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int wordview=0x7f030001;
+        public static final int queueblock_data=0x7f030001;
+        public static final int settings=0x7f030002;
+        public static final int wordview=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f090000;
