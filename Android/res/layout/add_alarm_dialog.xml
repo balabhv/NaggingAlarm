@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TimePicker
+        android:id="@+id/timePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <ScrollView
+        android:id="@+id/scrollAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/scrollLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What days of the week should this alarm go off?"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <CheckBox
+                android:id="@+id/cbSunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunday" />
+
+            <CheckBox
+                android:id="@+id/cbMonday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday" />
+
+            <CheckBox
+                android:id="@+id/cbTuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday" />
+
+            <CheckBox
+                android:id="@+id/cbWednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wednesday" />
+
+            <CheckBox
+                android:id="@+id/cbThursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thursday" />
+
+            <CheckBox
+                android:id="@+id/cbFriday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friday" />
+
+            <CheckBox
+                android:id="@+id/cbSaturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saturday" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ring Settings"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <CheckBox
+                android:id="@+id/useVoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable Voice Recognition" />
+
+            <CheckBox
+                android:id="@+id/cbEnable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable Alarm" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/addButtonOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add" />
+
+</LinearLayout>

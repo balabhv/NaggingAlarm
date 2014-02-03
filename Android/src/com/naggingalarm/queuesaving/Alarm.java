@@ -34,9 +34,13 @@ public class Alarm implements Serializable{
 	public static final String voice_key = "VOICE_WAKE";
 	public static final String on_key = "ENABLED";
 	
+	public static int ID_COUNT = 0;
+	
 	public Alarm(Calendar mDate, ArrayList<Boolean> days, boolean wakeOnVoice, boolean enabled) {
 		
 		date = mDate;
+		
+		ALARM_ID = ID_COUNT++;
 		
 		daysToRepeat = new ArrayList<Integer>();
 		
@@ -57,46 +61,76 @@ public class Alarm implements Serializable{
 	public Alarm(Calendar mDate, ArrayList<Boolean> days) {
 		this(mDate, days, false);
 	}
+	
+	public int getCurrentHour() {
+		return date.get(Calendar.HOUR_OF_DAY);
+	}
+	
+	public int getCurrentMinute() {
+		return date.get(Calendar.MINUTE);
+	}
+	
+	public boolean monday() {
+		return daysToRepeat.contains(MONDAY);
+	}
+	public boolean tuesday() {
+		return daysToRepeat.contains(TUESDAY);
+	}
+	public boolean wednesday() {
+		return daysToRepeat.contains(WEDNESDAY);
+	}
+	public boolean thursday() {
+		return daysToRepeat.contains(THURSDAY);
+	}
+	public boolean friday() {
+		return daysToRepeat.contains(FRIDAY);
+	}
+	public boolean saturday() {
+		return daysToRepeat.contains(SATURDAY);
+	}
+	public boolean sunday() {
+		return daysToRepeat.contains(SUNDAY);
+	}
+	public boolean voice() {
+		return useVoiceWake;
+	}
+	public boolean enabled() {
+		return enabled;
+	}
+	
 
 	public String getTime() {
 		String hour = ":";
-		if (date.get(Calendar.HOUR_OF_DAY) < 10) {
-			hour = "0" + date.get(Calendar.HOUR_OF_DAY) + hour;
+		if (date.get(Calendar.HOUR) < 10) {
+			hour = "0" + date.get(Calendar.HOUR) + hour;
 		} else {
-			hour = date.get(Calendar.HOUR_OF_DAY) + hour;
+			hour = date.get(Calendar.HOUR) + hour;
 		}
-		String min = ":";
+		String min = "";
 		if (date.get(Calendar.MINUTE) < 10) {
-			min = "0" + date.get(Calendar.MINUTE) + min;
+			min = "0" + date.get(Calendar.MINUTE);
 		} else {
-			min = date.get(Calendar.MINUTE) + min;
+			min = date.get(Calendar.MINUTE) + "";
 		}
-		String second = ".";
-		if (date.get(Calendar.SECOND) < 10) {
-			second = "0" + date.get(Calendar.SECOND) + second;
+		String suffix = " ";
+		if (date.get(Calendar.AM_PM) == Calendar.AM) {
+			suffix += "AM";
 		} else {
-			second = date.get(Calendar.SECOND) + second;
-		}
-		String milli;
-		if (date.get(Calendar.MILLISECOND) < 10) {
-			milli = "0" + date.get(Calendar.MILLISECOND);
-		} else {
-			milli = date.get(Calendar.MILLISECOND) + "";
+			suffix += "PM";
 		}
 		
-		return hour + min + second + milli;
+		return hour + min + suffix;
 	}
 
 	public boolean getEnabled() {
-		// TODO Auto-generated method stub
 		return enabled;
 	}
 
 	public String getDaysOfWeek() {
 		String s = "";
 		
-		for (int i = 0 ; i < 7 ; i++) {
-			switch(i) {
+		for (int i = 0 ; i < daysToRepeat.size() ; i++) {
+			switch(daysToRepeat.get(i)) {
 			case 0:
 				s += "SUNDAY, ";
 				break;
@@ -117,7 +151,12 @@ public class Alarm implements Serializable{
 				break;
 			case 6:
 				s += "SATURDAY";
+				break;
 			}
+		}
+		
+		if (s.charAt(s.length()-2) == ',') {
+			s = s.substring(0, s.length()-2);
 		}
 		
 		return s;

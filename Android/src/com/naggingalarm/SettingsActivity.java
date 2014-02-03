@@ -3,40 +3,51 @@ package com.naggingalarm;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.TimeZone;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naggingalarm.dialogs.AddAlarmDialog;
 import com.naggingalarm.queuesaving.Alarm;
 import com.naggingalarm.queuesaving.AlarmQueue;
 
 public class SettingsActivity extends Activity {
-	
+
 	public static AlarmQueue queue;
-	
+
 	private static LinearLayout scrollQueue;
 	protected static Alarm lastDataSetLongClicked;
 	private View lastViewLongClicked;
-	
-	@SuppressWarnings("unchecked")
+
+	private Button add;
+
+	public static final int NEW_ALARM_REQUESTED = 9000;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
-		
+
 		scrollQueue = (LinearLayout) findViewById(R.id.scrollqueue);
-		
+
 		queue = new AlarmQueue(this.getApplicationContext());
+
+		boolean success = queue.buildQueueFromFile();
+
+		if (!success) {
+			Log.e("ERROR", "Error building queue from file");
+		}
+
 		Alarm test;
 		Calendar t = new GregorianCalendar(TimeZone.getDefault());
 		t.set(2012, 11, 21);
@@ -48,87 +59,108 @@ public class SettingsActivity extends Activity {
 		b.add(true);
 		b.add(false);
 		b.add(false);
-		test = new Alarm(t,b);
+		test = new Alarm(t, b);
 		queue.addDataSetToQueue(test);
 		fillScrollQueue();
-		
+
+		add = (Button) findViewById(R.id.addButton);
+		add.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startActivityForResult(new Intent(getApplicationContext(),
+						AddAlarmDialog.class), NEW_ALARM_REQUESTED);
+
+			}
+		});
+
 	}
-	
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == NEW_ALARM_REQUESTED) {
+			queue.buildQueueFromFile();
+			fillScrollQueue();
+		}
+	}
+
 	private void fillScrollQueue() {
+
+		if (scrollQueue.getChildCount() > 0)
+			scrollQueue.removeAllViews();
 
 		for (final Alarm ds : queue.mirrorQueue)
 			addViewToScrollQueue(ds);
 
 	}
-	
+
 	// Fills the text fields in the list element blocks
-		private void makeBlock(View view, Alarm ds) {
-			TextView tv = (TextView) view.findViewById(R.id.name);
-			tv.setText(ds.getTime());
+	private void makeBlock(View view, Alarm ds) {
+		TextView tv = (TextView) view.findViewById(R.id.name);
+		tv.setText(ds.getTime());
 
-			TextView desc = (TextView) view.findViewById(R.id.description);			
-			desc.setText(ds.getDaysOfWeek());
-			
-			TextView on = (TextView) view.findViewById(R.id.enabled);
-			on.setText(ds.getEnabled() ? "On" : "Off");
-		}
-		
-		private String checkPrevious(String previous, LinearLayout scrollQueue,
-				String ds) {
+		TextView desc = (TextView) view.findViewById(R.id.description);
+		desc.setText(ds.getDaysOfWeek());
 
-			LinearLayout space = new LinearLayout(getApplicationContext());
-			space.setPadding(0, 10, 0, 10);
+		TextView on = (TextView) view.findViewById(R.id.enabled);
+		on.setText(ds.getEnabled() ? "On" : "Off");
+	}
 
-			if ((!previous.equals(ds)) && (!previous.equals("")))
-				scrollQueue.addView(space);
+	private String checkPrevious(String previous, LinearLayout scrollQueue,
+			String ds) {
 
-			return ds;
-		}
-	
-	
-		private void addViewToScrollQueue(final Alarm ds) {
+		LinearLayout space = new LinearLayout(getApplicationContext());
+		space.setPadding(0, 10, 0, 10);
 
-			String previous = "";
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT);
+		if ((!previous.equals(ds)) && (!previous.equals("")))
+			scrollQueue.addView(space);
 
-			layoutParams.setMargins(5, 5, 5, 5);
-			
-			final View data = View.inflate(getApplicationContext(), R.layout.queueblock_data,
-					null);
+		return ds;
+	}
 
-			makeBlock(data, ds);
-			previous = checkPrevious(previous, scrollQueue,
-					ds.getTime());
+	private void addViewToScrollQueue(final Alarm ds) {
 
-			scrollQueue.addView(data, layoutParams);
-			data.setContentDescription("" + ds.ALARM_ID);
+		String previous = "";
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
 
-			data.setOnClickListener(new OnClickListener() {
+		layoutParams.setMargins(5, 5, 5, 5);
 
-				public void onClick(View v) {
-					
-					Toast t = Toast.makeText(getApplicationContext(), "Clicking the Alarm", Toast.LENGTH_SHORT);
-					t.show();
-				}
+		final View data = View.inflate(getApplicationContext(),
+				R.layout.queueblock_data, null);
 
-			});
+		makeBlock(data, ds);
+		previous = checkPrevious(previous, scrollQueue, ds.getTime());
 
-			data.setOnLongClickListener(new OnLongClickListener() {
+		scrollQueue.addView(data, layoutParams);
+		data.setContentDescription("" + ds.ALARM_ID);
 
-				public boolean onLongClick(View v) {
-					lastDataSetLongClicked = ds;
-					lastViewLongClicked = data;
-					Toast t = Toast.makeText(getApplicationContext(), "Long Clicking the Alarm", Toast.LENGTH_SHORT);
-					t.show();
-					return false;
-				}
+		data.setOnClickListener(new OnClickListener() {
 
-			});
+			public void onClick(View v) {
 
-		}
-	
-	
+				Toast t = Toast.makeText(getApplicationContext(),
+						"Clicking the Alarm", Toast.LENGTH_SHORT);
+				t.show();
+			}
+
+		});
+
+		data.setOnLongClickListener(new OnLongClickListener() {
+
+			public boolean onLongClick(View v) {
+				lastDataSetLongClicked = ds;
+				lastViewLongClicked = data;
+				Intent i = new Intent(getApplicationContext(),
+						AddAlarmDialog.class);
+				i.putExtra("DATA", ds);
+				i.putExtra("EDITING", true);
+				startActivityForResult(i, NEW_ALARM_REQUESTED);
+				return false;
+			}
+
+		});
+
+	}
 
 }

@@ -34,6 +34,11 @@
             android:label="Settings"
             android:theme="@android:style/Theme.Holo" >
         </activity>
+        <activity
+            android:name="com.naggingalarm.dialogs.AddAlarmDialog"
+            android:label="Create New Alarm"
+            android:theme="@android:style/Theme.Holo.Dialog" >
+        </activity>
     </application>
 
 </manifest>
