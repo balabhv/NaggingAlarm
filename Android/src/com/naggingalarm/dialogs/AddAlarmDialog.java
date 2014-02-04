@@ -29,10 +29,14 @@ public class AddAlarmDialog extends Activity {
 	private boolean editing = false;
 	
 	private int hour, minute;
+	private AlarmQueue aq;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_alarm_dialog);
+		
+		aq = new AlarmQueue(getApplicationContext());
+		aq.buildQueueFromFile();
 		
 		Bundle b = getIntent().getExtras();
 		
@@ -54,6 +58,7 @@ public class AddAlarmDialog extends Activity {
 		
 		if (editing) {
 			setTitle("Edit Alarm");
+			aq.removeItemWithKey(toBeAdded.ALARM_ID);
 			picker.setCurrentHour(toBeAdded.getCurrentHour());
 			picker.setCurrentMinute(toBeAdded.getCurrentMinute());
 			m.setChecked(toBeAdded.monday());
@@ -72,8 +77,6 @@ public class AddAlarmDialog extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				AlarmQueue aq = new AlarmQueue(getApplicationContext());
-				aq.buildQueueFromFile();
 				
 				hour = picker.getCurrentHour().intValue();
 				minute = picker.getCurrentMinute().intValue();
@@ -81,11 +84,6 @@ public class AddAlarmDialog extends Activity {
 				mCal.set(Calendar.HOUR_OF_DAY, hour);
 				mCal.set(Calendar.MINUTE, minute);
 				setBools();
-				
-				if (editing) {
-					aq.alarmQueue.remove(toBeAdded);
-					aq.mirrorQueue.remove(toBeAdded);
-				}
 				
 				toBeAdded = new Alarm(mCal, days, voice, enabled);
 				aq.addDataSetToQueue(toBeAdded);

@@ -66,7 +66,7 @@ public class AlarmQueue implements Serializable {
 		}
 
 		File alarmQueueFile = new File(folder.getAbsolutePath() + "/"
-				 + "NaggingAlarm.ser");
+				 + "NaggingAlarm_Alarms.ser");
 
 		// writes the queue to a serializable file
 		ObjectOutput out = null;
@@ -125,7 +125,7 @@ public class AlarmQueue implements Serializable {
 	}
 	
 	// removes the dataset with the associated key: true if removed, false if not found
-	protected boolean removeItemWithKey(long keyVal) {
+	public boolean removeItemWithKey(long keyVal) {
 		LinkedList<Alarm> backup = new LinkedList<Alarm>();
 		backup.addAll(alarmQueue);
 		for (Alarm ds : backup) {
@@ -176,7 +176,7 @@ public class AlarmQueue implements Serializable {
 		}
 		
 		File alarmQueueFile = new File(folder.getAbsolutePath() + "/"
-				+ "NaggingAlarm.ser");
+				+ "NaggingAlarm_Alarms.ser");
 		
 		try {
 			// Deserialize the file as a whole

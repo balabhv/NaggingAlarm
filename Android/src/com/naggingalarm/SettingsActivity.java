@@ -7,8 +7,8 @@ import java.util.TimeZone;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +16,6 @@ import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.naggingalarm.dialogs.AddAlarmDialog;
 import com.naggingalarm.queuesaving.Alarm;
@@ -27,12 +26,10 @@ public class SettingsActivity extends Activity {
 	public static AlarmQueue queue;
 
 	private static LinearLayout scrollQueue;
-	protected static Alarm lastDataSetLongClicked;
-	private View lastViewLongClicked;
-
-	private Button add;
+	private Button add, record;
 
 	public static final int NEW_ALARM_REQUESTED = 9000;
+	public static final int VOICE_RECOGNITION_REQUEST_CODE = 9001;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,6 +61,8 @@ public class SettingsActivity extends Activity {
 		fillScrollQueue();
 
 		add = (Button) findViewById(R.id.addButton);
+		record = (Button) findViewById(R.id.recordNew);
+		
 		add.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -73,6 +72,15 @@ public class SettingsActivity extends Activity {
 
 			}
 		});
+		
+		record.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
+			}
+		});
 
 	}
 
@@ -80,6 +88,17 @@ public class SettingsActivity extends Activity {
 		if (requestCode == NEW_ALARM_REQUESTED) {
 			queue.buildQueueFromFile();
 			fillScrollQueue();
+		} else if (requestCode == VOICE_RECOGNITION_REQUEST_CODE
+				&& resultCode == RESULT_OK) {
+			// Fill the list view with the strings the recognizer thought it
+			// could have heard
+			ArrayList<String> matches = data
+					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+
+			
+
+			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 
@@ -116,6 +135,18 @@ public class SettingsActivity extends Activity {
 
 		return ds;
 	}
+	
+	/**
+	 * Fire an intent to start the speech recognition activity.
+	 */
+	private void startVoiceRecognitionActivity() {
+		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+				RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+				"Speak the sentence here");
+		startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
+	}
 
 	private void addViewToScrollQueue(final Alarm ds) {
 
@@ -139,9 +170,10 @@ public class SettingsActivity extends Activity {
 
 			public void onClick(View v) {
 
-				Toast t = Toast.makeText(getApplicationContext(),
-						"Clicking the Alarm", Toast.LENGTH_SHORT);
-				t.show();
+				ds.setEnabled(!ds.enabled());
+				scrollQueue.removeView(data);
+				addViewToScrollQueue(ds);
+				
 			}
 
 		});
@@ -149,8 +181,6 @@ public class SettingsActivity extends Activity {
 		data.setOnLongClickListener(new OnLongClickListener() {
 
 			public boolean onLongClick(View v) {
-				lastDataSetLongClicked = ds;
-				lastViewLongClicked = data;
 				Intent i = new Intent(getApplicationContext(),
 						AddAlarmDialog.class);
 				i.putExtra("DATA", ds);
