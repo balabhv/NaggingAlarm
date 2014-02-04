@@ -26,18 +26,46 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int listelement_bkgd=0x7f020001;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0000;
-        public static final int action_settings=0x7f0a0004;
-        public static final int button1=0x7f0a0003;
+        public static final int action_settings=0x7f0a001c;
+        public static final int addButton=0x7f0a0019;
+        public static final int addButtonOK=0x7f0a0010;
+        public static final int alarmLayout=0x7f0a0016;
+        public static final int button1=0x7f0a001b;
+        public static final int cbEnable=0x7f0a000f;
+        public static final int cbFriday=0x7f0a000b;
+        public static final int cbMonday=0x7f0a0007;
+        public static final int cbSaturday=0x7f0a000c;
+        public static final int cbSunday=0x7f0a0006;
+        public static final int cbThursday=0x7f0a000a;
+        public static final int cbTuesday=0x7f0a0008;
+        public static final int cbWednesday=0x7f0a0009;
+        public static final int check_layout=0x7f0a0012;
+        public static final int description=0x7f0a0014;
+        public static final int enabled=0x7f0a0015;
+        public static final int name=0x7f0a0013;
+        public static final int outerLayout=0x7f0a0011;
+        public static final int recordNew=0x7f0a001a;
+        public static final int scrollAdd=0x7f0a0003;
+        public static final int scrollLinear=0x7f0a0004;
+        public static final int scrollView1=0x7f0a0017;
+        public static final int scrollqueue=0x7f0a0018;
         public static final int textClock1=0x7f0a0001;
-        public static final int textView1=0x7f0a0002;
-        public static final int wordsviewopen=0x7f0a0005;
+        public static final int textView1=0x7f0a0005;
+        public static final int textView2=0x7f0a000d;
+        public static final int timePicker1=0x7f0a0002;
+        public static final int useVoice=0x7f0a000e;
+        public static final int wordsviewopen=0x7f0a001d;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int wordview=0x7f030001;
+        public static final int add_alarm_dialog=0x7f030001;
+        public static final int queueblock_data=0x7f030002;
+        public static final int settings=0x7f030003;
+        public static final int wordview=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f090000;
