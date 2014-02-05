@@ -1,8 +1,6 @@
 package com.naggingalarm.queuesaving;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -160,6 +158,11 @@ public class Alarm implements Serializable{
 		}
 		
 		return s;
+	}
+
+	public void setEnabled(boolean b) {
+		enabled = b;
+		
 	}
 		
 	
