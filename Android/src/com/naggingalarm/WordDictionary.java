@@ -11,6 +11,7 @@ import android.content.Context;
 
 public class WordDictionary {
 
+	private static final int LENGTH_OF_PHRASES = 10;
 	List<String> wordList;
 	static WordDictionary instance;
 
@@ -48,6 +49,15 @@ public class WordDictionary {
 	}
 	
 	public static String getRandomSentence(WordDictionary dict) {
+		String s = "";
+		for (int i = 0 ; i < LENGTH_OF_PHRASES ; i++) {
+			s += getRandomWord(dict) + " ";
+		}
+		
+		return s;
+	}
+	
+	public static String getRandomWord(WordDictionary dict) {
 		List<String> tmpList = dict.wordList;
 		Collections.shuffle(tmpList);
 		return tmpList.get(0);

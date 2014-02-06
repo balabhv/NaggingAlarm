@@ -30,11 +30,11 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0000;
-        public static final int action_settings=0x7f0a001c;
+        public static final int action_settings=0x7f0a001b;
         public static final int addButton=0x7f0a0019;
         public static final int addButtonOK=0x7f0a0010;
         public static final int alarmLayout=0x7f0a0016;
-        public static final int button1=0x7f0a001b;
+        public static final int button1=0x7f0a001a;
         public static final int cbEnable=0x7f0a000f;
         public static final int cbFriday=0x7f0a000b;
         public static final int cbMonday=0x7f0a0007;
@@ -48,7 +48,6 @@ public final class R {
         public static final int enabled=0x7f0a0015;
         public static final int name=0x7f0a0013;
         public static final int outerLayout=0x7f0a0011;
-        public static final int recordNew=0x7f0a001a;
         public static final int scrollAdd=0x7f0a0003;
         public static final int scrollLinear=0x7f0a0004;
         public static final int scrollView1=0x7f0a0017;
@@ -58,7 +57,7 @@ public final class R {
         public static final int textView2=0x7f0a000d;
         public static final int timePicker1=0x7f0a0002;
         public static final int useVoice=0x7f0a000e;
-        public static final int wordsviewopen=0x7f0a001d;
+        public static final int wordsviewopen=0x7f0a001c;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -73,7 +72,17 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
+        public static final int days_of_week=0x7f060003;
+        public static final int enable=0x7f06000c;
+        public static final int fri=0x7f060009;
         public static final int hello_world=0x7f060002;
+        public static final int mon=0x7f060005;
+        public static final int ring_settings=0x7f06000b;
+        public static final int sat=0x7f06000a;
+        public static final int sun=0x7f060004;
+        public static final int thurs=0x7f060008;
+        public static final int tue=0x7f060006;
+        public static final int wed=0x7f060007;
     }
     public static final class style {
         /** 

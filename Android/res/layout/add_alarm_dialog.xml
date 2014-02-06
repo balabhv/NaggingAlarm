@@ -25,56 +25,56 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="What days of the week should this alarm go off?"
+                android:text="@string/days_of_week"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
                 android:id="@+id/cbSunday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sunday" />
+                android:text="@string/sun" />
 
             <CheckBox
                 android:id="@+id/cbMonday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monday" />
+                android:text="@string/mon" />
 
             <CheckBox
                 android:id="@+id/cbTuesday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tuesday" />
+                android:text="@string/tue" />
 
             <CheckBox
                 android:id="@+id/cbWednesday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wednesday" />
+                android:text="@string/wed" />
 
             <CheckBox
                 android:id="@+id/cbThursday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thursday" />
+                android:text="@string/thurs" />
 
             <CheckBox
                 android:id="@+id/cbFriday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Friday" />
+                android:text="@string/fri" />
 
             <CheckBox
                 android:id="@+id/cbSaturday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Saturday" />
+                android:text="@string/sat" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ring Settings"
+                android:text="@string/ring_settings"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <CheckBox
@@ -87,7 +87,7 @@
                 android:id="@+id/cbEnable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enable Alarm" />
+                android:text="@string/enable" />
         </LinearLayout>
     </ScrollView>
 
